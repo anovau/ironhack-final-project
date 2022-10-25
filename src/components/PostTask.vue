@@ -1,5 +1,5 @@
 <template>
-    <form action="">
+    <form @submit.prevent="onSubmit">
         <div class="field">
   <label class="label">Title</label>
   <div class="control">
@@ -23,14 +23,30 @@
   </div>
 </div>
     </form>
-    <Task />
 </template>
 <script setup>
 import { ref } from 'vue'
-import Task from './Task.vue';
+import { useTaskStore } from '../store/task.js'
+import { useAuthStore } from '../store/auth.js';
+import { getTasks, newTask } from '../api';
+
+const taskStore = useTaskStore();
+const authStore = useAuthStore();
 
 const title = ref('');
 const description = ref('');
+
+const onSubmit = async () => {
+
+  console.log("Formulario enviado")
+  if (title.value !== '' && description.value !== '') {
+        await newTask(authStore.$state.user.id, title.value, description.value);
+        await getTasks();
+        title.value = '';
+        description.value = '';
+        console.log("Task creada")
+    }
+};
 
 </script>
 <style scoped>

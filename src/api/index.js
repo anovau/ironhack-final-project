@@ -19,7 +19,6 @@ export const login = async (email, password) => {
     })
     return response.data.user.id
 }
-
 /*
 task: {
             user_id: id,
@@ -27,21 +26,27 @@ task: {
             description: 'Descripcion del task'
         }
 */
-export const newTask = async (task) => {
+export const newTask = async (id, title, description ) => {
     const response = await supabase.from('task')
-        .insert(task)
+        .insert({
+            user_id: id,
+            title: title,
+            description: description,
+          });
     // TODO identificar la  respuesta y retornar lo que necesitemos p.ej true si se ha insertado el registro y false si no
     // El response no retorna el id de la task que se ha creado tendremos que volver a hace un getTask para obtener los id
     console.log(response);
+    console.log("Funcion newTask")
 }
 
-export const getTasks = async () => {
+export const getTasks = async (id) => {
     const response = await supabase
         .from('task')
         .select('*')
         .order('id', { ascending: false })
     console.log(response)
     // TODO retornar la informacion de los task, ej response.data
+    return response.data;
 }
 
 /*

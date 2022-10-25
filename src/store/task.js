@@ -26,7 +26,7 @@ export const useTaskStore = defineStore('task', {
             // Encontramos el indice de ese id y eliminamos ese indice de la array
         },
 
-        addTask(task) {
+        addTask(title, description) {
             // TODO modificar el estado de task haciendo un push de la task
             // Comprobar que tenemos el id al insertar el registro, en caso de no tenerlo tendriamos que hacer el getTask
         }

@@ -1,22 +1,22 @@
 <template>
-  <h1>Task App</h1>
-  <ul>
-    <li>
-      <router-link :to="{name: 'home'}">Home</router-link>
-    </li>
-
-    <li>
-      <router-link :to="{name: 'login'}">Login</router-link>
-    </li>
-  </ul>
-  <router-view></router-view>
+  <div class="container">
+    <Navbar />
+    <router-view></router-view>
+  </div>
+  <Footer />
 </template>
 <script setup>
 import { ref } from 'vue';
+import Navbar from './components/Navbar.vue';
+import Footer from './components/Footer.vue';
+import { onMounted } from 'vue';
 
-console.log(process.env.NODE_ENV)
-console.log(import.meta.env.BASE_URL)
+
+onMounted(() => {
+  
+});
 
 </script>
 <style scoped>
+
 </style>

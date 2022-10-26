@@ -17,22 +17,17 @@
                 <router-link :to="{name: 'home'}" class="navbar-item">
                     Home
                 </router-link>
-
-                <a class="navbar-item">
-                    Documentation
-                </a>
-
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
-                        More
+                        Style
                     </a>
 
                     <div class="navbar-dropdown">
                         <a class="navbar-item">
-                            About
+                            Dark
                         </a>
                         <a class="navbar-item">
-                            Jobs
+                            Light
                         </a>
                         <a class="navbar-item">
                             Contact

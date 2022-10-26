@@ -1,6 +1,10 @@
 <template>
     <div class="section">
         <h1>LOGIN</h1>
+        <div v-show="ErrorMessage" class="notification is-danger is-light">
+            <button class="delete"></button>
+            <strong>Error:</strong> Invalid login credentials
+        </div>
         <form @submit.prevent="onSubmit">
             <div class="field">
                 <p class="control has-icons-left has-icons-right">
@@ -28,6 +32,7 @@
                     </button>
                 </p>
             </div>
+            <P>Not yet registered? <router-link :to="{name: 'register'}" >Create a free account.</router-link></P>   
         </form>
     </div>
 
@@ -43,19 +48,21 @@ const authStore = useAuthStore();
 
 const email = ref('');
 const password = ref('');
+const ErrorMessage = ref(false);
+
 
 const onSubmit = async () => {
     console.log("formulario enviado Login ", email.value, password.value);
     const res = await login(email.value, password.value)
-    
-    console.log(res)
-    if(res){
+    ErrorMessage.value = false;
+    if (res) {
         console.log("login hecho")
         authStore.login(res, email.value, password.value);
-        router.push({name: 'home'})
-    }else{
-        console.log("Error login")
-    }    
+        router.push({ name: 'home' })
+    }else {
+        ErrorMessage.value = true;
+        // NO FUNCIONA MOSTRAR EL MENSAJE DE ERROR
+    }
 };
 
 </script>

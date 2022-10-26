@@ -1,6 +1,12 @@
 <template>
     <div class="container">
-        <h1>SIGN UP</h1>
+        <h1>Create new account</h1>
+        <div v-show="ConfirmationMessage" class="notification is-success is-light">
+  <button class="delete"></button>
+ <h2 class="notification-title" >Congratulations Your account has been created</h2> 
+ Confirm your registration by going to your inbox <strong>{{email}}</strong> and <strong>click the confirmation link</strong> that we just sent you. 
+ when the email has been confirmed, you can access in <router-link :to="{name: 'login'}" ><strong>Login</strong> </router-link> page.
+</div>
         <form @submit.prevent="onSubmit">
             <div class="field">
                 <p class="control has-icons-left has-icons-right">
@@ -20,6 +26,8 @@
                         <i class="fas fa-lock"></i>
                     </span>
                 </p>
+                <p v-show="passwordNotMatch" class="help is-danger">Passwords do not match</p>
+                <p v-show="passwordError" class="help is-danger">The password must be at least 6 characters long.</p>
             </div>
             <div class="field">
                 <p class="control has-icons-left">
@@ -28,6 +36,7 @@
                         <i class="fas fa-lock"></i>
                     </span>
                 </p>
+                <p v-show="passwordNotMatch" class="help is-danger">Passwords do not match</p>
             </div>
             <div class="field">
                 <p class="control">
@@ -41,6 +50,7 @@
 </template>
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'
 import { useAuthStore } from '../store/auth.js';
 import { signup } from '../api';
 
@@ -48,25 +58,35 @@ const authStore = useAuthStore();
 const email = ref('')
 const password = ref('')
 const passwordConfirm = ref('')
+const passwordNotMatch = ref(false)
+const passwordError = ref(false)
+const ConfirmationMessage = ref(false)
 
 const onSubmit = async () => {
     console.log("formulario enviado Login");
     console.log(email.value);
     console.log(password.value);
+    passwordNotMatch.value = false;
+    passwordError.value = false;
 
     if(password.value === passwordConfirm.value && password.value.length > 5){
         const res = await signup(email.value, password.value);
-    console.log("contraseñas iguales");
+        ConfirmationMessage.value = true;
 
-    }else if(password.value !== passwordConfirm.value){
-        alert("contraseñas no coinciden");
-    }else{
-        alert("La contraseña debe tener moinimo 6 caracteres");
+    }else if(password.value.length < 6){
+        passwordError.value = true;
+    }
+    else if(password.value !== passwordConfirm.value){
+        passwordNotMatch.value = true;
     }
 
 };
 
 </script>
 <style scoped>
+.notification-title {
+    font-size: 22px;
+    font-weight: bold;
+}
 
 </style>

@@ -32,7 +32,8 @@
                     </button>
                 </p>
             </div>
-            <P>Not yet registered? <router-link :to="{name: 'register'}" >Create a free account.</router-link></P>   
+            <P>Not yet registered? <router-link :to="{name: 'register'}">Create a free account.</router-link>
+            </P>
         </form>
     </div>
 
@@ -59,7 +60,7 @@ const onSubmit = async () => {
         console.log("login hecho")
         authStore.login(res, email.value, password.value);
         router.push({ name: 'home' })
-    }else {
+    } else {
         ErrorMessage.value = true;
         // NO FUNCIONA MOSTRAR EL MENSAJE DE ERROR
     }

@@ -52,6 +52,16 @@ export const useTaskStore = defineStore('task', {
     console.log(response);
     console.log("Funcion newTask")
     
+        },
+        async taskDone(id, isCompleted) {
+            const response = await supabase.from('task')
+                    .update({ isCompleted: isCompleted })
+                    .match({ id: id })
+    // TODO identificar la  respuesta y retornar lo que necesitemos p.ej true si se ha insertado el registro y false si no
+    // El response no retorna el id de la task que se ha creado tendremos que volver a hace un getTask para obtener los id
+    console.log(response);
+    console.log("Funcion newTask")
+    
         }
 
 

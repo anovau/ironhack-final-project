@@ -4,14 +4,14 @@
         <div class="field">
   <label class="label">Title</label>
   <div class="control">
-    <input v-model="title" class="input" type="text" placeholder="Text input">
+    <input v-model="title" class="input" type="text" placeholder="Task title">
   </div>
 </div>
 
 <div class="field">
   <label class="label">Description</label>
   <div class="control">
-    <textarea v-model="description" class="textarea" placeholder="Textarea"></textarea>
+    <textarea v-model="description" class="textarea" placeholder="Description"></textarea>
   </div>
 </div>
 
@@ -30,8 +30,9 @@
 import { ref } from 'vue'
 import { useTaskStore } from '../store/task.js'
 import { useAuthStore } from '../store/auth.js';
-/* import { getTasks, newTask } from '../api'; */
+import { defineEmits } from 'vue';
 
+const emit = defineEmits(['handleRefresh'])
 const taskStore = useTaskStore();
 const authStore = useAuthStore();
 
@@ -39,14 +40,13 @@ const title = ref('');
 const description = ref('');
 
 const onSubmit = async () => {
-
-  console.log("Formulario enviado")
   if (title.value !== '' && description.value !== '') {
         await taskStore.addTask(authStore.$state.user.id, title.value, description.value);
         await taskStore.getTask();
         title.value = '';
         description.value = '';
         console.log("Task creada")
+        emit('handleRefresh');
     }
 };
 

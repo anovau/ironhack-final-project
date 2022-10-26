@@ -1,14 +1,17 @@
 <template>
-    <div class="task notification box column is-4 is-12-mobile">
+    <div class="task notification box column is-4 is-12-mobile" :class="{doneStyle: props.task.isCompleted}">
         <button @click="deleteTask" class="delete is-medium"></button>
         <div v-if="!showEdit" class="content content-task">
 
-            <h2>{{props.task.title}}</h2>
+            <h2 :class="{textDone: props.task.isCompleted}">{{props.task.title}}</h2>
             <p>{{props.task.description}}</p>
             <p>{{props.task.created_at}}</p>
             <div class="actions-task">
-                <button @click="editForm">Edit</button>
-                <button>Done</button>
+                <i @click="editForm" class="far fa-edit"></i>
+                <label class="checkbox">
+                    <input @click="done" v-model="props.task.isCompleted" type="checkbox">
+                    Done
+                </label>
             </div>
         </div>
         <div v-else>
@@ -42,12 +45,15 @@
 <script setup>
 import { ref, defineProps } from 'vue';
 import { useTaskStore } from '../store/task.js';
-import { getTasks } from '../api';
+import { defineEmits } from 'vue';
+
+const emit = defineEmits(['handleRefresh'])
 
 const taskStore = useTaskStore();
 const showEdit = ref(false)
 const editTitle = ref('');
 const editDescription = ref('');
+const isCompleted = ref(props.task.isCompleted)
 
 const props = defineProps({
     task: Object
@@ -56,7 +62,7 @@ const props = defineProps({
 const deleteTask = async () => {
     if (confirm("Are you sure you want to delete task id ?")) {
         await taskStore.deleteTask(props.task.id)
-        await getTasks()
+        emit("handleRefresh")
         console.log("eliminara task " + props.task.id)
     }
 };
@@ -68,18 +74,33 @@ const closeEdit = () => {
     showEdit.value = false;
 };
 const saveEdit = async () => {
-    await taskStore.updateTask(props.task.id, editTitle.value, editDescription.value)
-    await taskStore.getTask();
-    showEdit.value = false;
+    if (editTitle.value !== '' && editDescription.value !== '') {
+        await taskStore.updateTask(props.task.id, editTitle.value, editDescription.value)
+        emit("handleRefresh")
+        showEdit.value = false;
+    }
+}
+const done = async () => {
+    isCompleted.value = !isCompleted.value;
+    await taskStore.taskDone(props.task.id, isCompleted.value)
+    emit("handleRefresh")
 }
 
 </script>
 <style scoped>
-.actions-task{
+.textDone {
+    text-decoration: line-through
+}
+.actions-task {
     border-top: 1px solid rgb(206, 205, 205);
     padding: 1rem;
     display: flex;
     justify-content: space-around;
+}
+
+.doneStyle {
+    background-color: rgb(238, 238, 238);
+    color: white;
 }
 
 .content-task {

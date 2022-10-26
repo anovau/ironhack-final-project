@@ -4,10 +4,10 @@
     </div>
     <div v-else>
         <PostTask @handleRefresh="refresh" />
-        <div class="columns is-multiline mt-5" >
-         <Task :task="task" v-for="task in tasks" @handleRefresh="refresh"/>
+        <div class="columns is-multiline mt-5">
+            <Task :task="task" v-for="task in tasks" @handleRefresh="refresh" />
         </div>
-</div>
+    </div>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -30,7 +30,7 @@ const refresh = async () => {
     await listTasks()
 }
 
-onMounted( async () => {
+onMounted(async () => {
     listTasks();
 });
 

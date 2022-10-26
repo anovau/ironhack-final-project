@@ -51,8 +51,8 @@ const emit = defineEmits(['handleRefresh'])
 
 const taskStore = useTaskStore();
 const showEdit = ref(false)
-const editTitle = ref('');
-const editDescription = ref('');
+const editTitle = ref(props.task.title);
+const editDescription = ref(props.task.description);
 const isCompleted = ref(props.task.isCompleted)
 
 const props = defineProps({
@@ -99,8 +99,8 @@ const done = async () => {
 }
 
 .doneStyle {
-    background-color: rgb(238, 238, 238);
-    color: white;
+    background-color: rgb(230, 228, 228);
+    color: rgb(196, 196, 196);
 }
 
 .content-task {

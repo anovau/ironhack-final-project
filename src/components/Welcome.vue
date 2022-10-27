@@ -33,7 +33,6 @@ h2 {
 .light-container {
     background-color: rgba(188, 187, 187, 0.5);
     border-radius: 15px;
-    width: 50%;
     padding: 2rem;
 }
 </style>

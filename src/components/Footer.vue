@@ -1,6 +1,6 @@
 <template>
-    <footer class="content-footer is-vcentered">
-  <div class="content has-text-centered ">
+    <footer class="content-footer ">
+  <div class="content has-text-centered is-vcentered">
     <p>
       <strong>TO DO LIST</strong> by <a href="https://github.com/anovau">Albert Novau</a>. 2022
     </p>

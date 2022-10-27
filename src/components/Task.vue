@@ -1,51 +1,55 @@
 <template>
     <div class="column is-4-desktop is-12-mobile is-6-tablet">
-    <div class="notification box" :class="{ doneStyle: props.task.isCompleted }">
-        <button @click="deleteTask" class="delete is-medium"></button>
-        <div v-if="!showEdit" class="content content-task">
-            <div>
-                <h2 :class="{ textDone: props.task.isCompleted }">{{ props.task.title }}</h2>
-                <p>{{ props.task.description }}</p>
-            </div>
-            <div class="">
-                <p class="date">{{ date.toLocaleDateString('en-us', options) }}</p>
-                <div class="actions-task">
-                    <i @click="editForm" class="far fa-edit"></i>
-                    <label class="checkbox">
-                        <input @click="done" v-model="props.task.isCompleted" type="checkbox">
-                        Done
-                    </label>
+        <div class="notification box" :class="{ doneStyle: props.task.isCompleted }">
+            <button @click="deleteTask" class="delete is-medium"></button>
+            <div v-if="!showEdit" class="content content-task">
+                <div>
+                    <h2 :class="{ textDone: props.task.isCompleted }">{{ props.task.title }}</h2>
+                    <p>{{ props.task.description }}</p>
                 </div>
-            </div>
-        </div>
-        <div v-else>
-            <form @submit.prevent="onSubmit">
-                <div class="field">
-                    <label class="label">Title</label>
-                    <div class="control">
-                        <input v-model="editTitle" class="input" type="text" :placeholder="props.task.title">
+                <div class="">
+                    <p class="date">{{ date.toLocaleDateString('en-us', options) }}</p>
+                    <div class="actions-task">
+                        <i @click="editForm" class="far fa-edit"></i>
+                        <label class="checkbox">
+                            <input @click="done" v-model="props.task.isCompleted" type="checkbox">
+                            Done
+                        </label>
                     </div>
                 </div>
+            </div>
+            <div v-else>
+                <form @submit.prevent="onSubmit">
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                            <input v-model="editTitle" class="input" :class="{ 'is-danger': titleRequired }" type="text"
+                                :placeholder="props.task.title">
+                            <p v-show="titleRequired" class="help is-danger">Title is required</p>
+                        </div>
+                    </div>
 
-                <div class="field">
-                    <label class="label">Description</label>
-                    <div class="control">
-                        <textarea v-model="editDescription" class="textarea"
-                            :placeholder="props.task.description"></textarea>
+                    <div class="field">
+                        <label class="label">Description</label>
+                        <div class="control">
+                            <textarea v-model="editDescription" class="textarea"
+                                :class="{ 'is-danger': descriptionRequired }"
+                                :placeholder="props.task.description"></textarea>
+                            <p v-show="descriptionRequired" class="help is-danger">Description is required</p>
+                        </div>
                     </div>
-                </div>
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button @click="saveEdit" class="button is-link">Save</button>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button @click="saveEdit" class="button is-link">Save</button>
+                        </div>
+                        <div class="control">
+                            <button @click="closeEdit" class="button is-link is-light">Cancel</button>
+                        </div>
                     </div>
-                    <div class="control">
-                        <button @click="closeEdit" class="button is-link is-light">Cancel</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </template>
 <script setup>
 import { ref, defineProps } from 'vue';
@@ -61,7 +65,8 @@ const editDescription = ref(props.task.description);
 const isCompleted = ref(props.task.isCompleted)
 const date = ref(new Date(props.task.created_at))
 const options = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", hour12: "false" };
-const dateFormated = ref('')
+const titleRequired = ref(false)
+const descriptionRequired = ref(false)
 
 const props = defineProps({
     task: Object
@@ -86,6 +91,16 @@ const saveEdit = async () => {
         await taskStore.updateTask(props.task.id, editTitle.value, editDescription.value)
         emit("handleRefresh")
         showEdit.value = false;
+    } else if (editTitle.value == '') {
+        titleRequired.value = true;
+        setTimeout(() => {
+            titleRequired.value = false;
+        }, 3000);
+    } else if (editDescription.value == '') {
+        descriptionRequired.value = true;
+        setTimeout(() => {
+            descriptionRequired.value = false;
+        }, 3000);
     }
 }
 const done = async () => {

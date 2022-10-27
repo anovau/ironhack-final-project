@@ -12,7 +12,7 @@
             </a>
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': burgerMenu  }">
+        <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': burgerMenu }">
             <div class="navbar-start">
                 <router-link :to="{name: 'home'}" class="navbar-item">
                     Home
@@ -70,7 +70,6 @@ const authStore = useAuthStore();
 const burgerMenu = ref(false)
 
 const logout = () => {
-    console.log("Cerrar sesión");
     authStore.logout();
     router.push({name: 'home'})
 };

@@ -23,7 +23,6 @@ const tasks = ref()
 
 const listTasks = async () => {
     tasks.value = await taskStore.getTask()
-    console.log("Actualizar tasks")
 }
 
 const refresh = async () => {

@@ -1,6 +1,8 @@
 <template>
-    <div class="container">
-        <h1>Create new account</h1>
+    <div class="columns is-centered background-grey">
+    <div class="total-height column is-half is-full-mobile">
+        <div class="box m-5">
+        <h1 class="mb-3">Create new account</h1>
         <div v-show="ConfirmationMessage" class="notification is-success is-light">
   <button class="delete"></button>
  <h2 class="notification-title" >Congratulations Your account has been created</h2> 
@@ -45,8 +47,11 @@
                     </button>
                 </p>
             </div>
+            <P>Already have an account? <router-link :to="{name: 'login'}">Log in</router-link></P>
         </form>
     </div>
+</div>
+</div>
 </template>
 <script setup>
 import { ref } from 'vue';
@@ -88,5 +93,4 @@ const onSubmit = async () => {
     font-size: 22px;
     font-weight: bold;
 }
-
 </style>

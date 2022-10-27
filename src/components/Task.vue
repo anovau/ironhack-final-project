@@ -2,10 +2,9 @@
     <div class="task notification box column is-4 is-12-mobile" :class="{doneStyle: props.task.isCompleted}">
         <button @click="deleteTask" class="delete is-medium"></button>
         <div v-if="!showEdit" class="content content-task">
-
             <h2 :class="{textDone: props.task.isCompleted}">{{props.task.title}}</h2>
             <p>{{props.task.description}}</p>
-            <p>{{props.task.created_at}}</p>
+            <p>{{date.toLocaleDateString('en-us', options)}}</p>
             <div class="actions-task">
                 <i @click="editForm" class="far fa-edit"></i>
                 <label class="checkbox">
@@ -54,6 +53,9 @@ const showEdit = ref(false)
 const editTitle = ref(props.task.title);
 const editDescription = ref(props.task.description);
 const isCompleted = ref(props.task.isCompleted)
+const date = ref(new Date(props.task.created_at))
+const options = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", hour12:"false"};
+const dateFormated = ref('')
 
 const props = defineProps({
     task: Object
@@ -97,12 +99,10 @@ const done = async () => {
     display: flex;
     justify-content: space-around;
 }
-
 .doneStyle {
     background-color: rgb(230, 228, 228);
     color: rgb(196, 196, 196);
 }
-
 .content-task {
     padding: 2rem 1rem 0rem 1rem;
 }

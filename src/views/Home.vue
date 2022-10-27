@@ -2,12 +2,12 @@
     <div v-if="!authStore.isAuth">
         <Welcome />
     </div>
-    <div v-else>
+    <div v-else class="mt-5">
         <PostTask @handleRefresh="refresh" />
-        <div class="columns is-multiline mt-5">
-            <Task :task="task" v-for="task in tasks" @handleRefresh="refresh" />
+        <div class="columns is-multiline mt-5" >
+         <Task :task="task" v-for="task in tasks" @handleRefresh="refresh"/>
         </div>
-    </div>
+</div>
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
@@ -30,7 +30,7 @@ const refresh = async () => {
     await listTasks()
 }
 
-onMounted(async () => {
+onMounted( async () => {
     listTasks();
 });
 

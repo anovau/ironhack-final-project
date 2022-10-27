@@ -1,6 +1,8 @@
 <template>
-    <div class="section">
-        <h1>LOGIN</h1>
+    <div class="columns is-centered background-grey">
+    <div class="column is-half is-full-mobile total-height">
+        <div class="box m-5">
+        <h1 class="mb-3">Login</h1>
         <div v-show="ErrorMessage" class="notification is-danger is-light">
             <button class="delete"></button>
             <strong>Error:</strong> Invalid login credentials
@@ -36,7 +38,8 @@
             </P>
         </form>
     </div>
-
+    </div>
+</div>
 </template>
 <script setup>
 import { ref } from 'vue';
@@ -68,5 +71,6 @@ const onSubmit = async () => {
 
 </script>
 <style scoped>
+
 
 </style>

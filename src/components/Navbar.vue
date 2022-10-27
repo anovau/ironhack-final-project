@@ -21,7 +21,6 @@
                     <a class="navbar-link">
                         Style
                     </a>
-
                     <div class="navbar-dropdown">
                         <a class="navbar-item">
                             Dark
@@ -52,7 +51,7 @@
                     </div>
                     <div v-else class="buttons">
                         <p class="mx-5">Hello {{authStore.$state.user.email}}</p>
-                        <router-link @click="logout" :to="{name: 'register'}" class="button is-danger">
+                        <router-link @click="logout" :to="{name: 'register'}" class="button is-primary">
                             <strong>Logout</strong>
                         </router-link>
                     </div>

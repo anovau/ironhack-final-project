@@ -1,16 +1,21 @@
 <template>
-    <div class="task notification box column is-4 is-12-mobile" :class="{doneStyle: props.task.isCompleted}">
+    <div class="column is-4-desktop is-12-mobile is-6-tablet">
+    <div class="notification box" :class="{ doneStyle: props.task.isCompleted }">
         <button @click="deleteTask" class="delete is-medium"></button>
         <div v-if="!showEdit" class="content content-task">
-            <h2 :class="{textDone: props.task.isCompleted}">{{props.task.title}}</h2>
-            <p>{{props.task.description}}</p>
-            <p>{{date.toLocaleDateString('en-us', options)}}</p>
-            <div class="actions-task">
-                <i @click="editForm" class="far fa-edit"></i>
-                <label class="checkbox">
-                    <input @click="done" v-model="props.task.isCompleted" type="checkbox">
-                    Done
-                </label>
+            <div>
+                <h2 :class="{ textDone: props.task.isCompleted }">{{ props.task.title }}</h2>
+                <p>{{ props.task.description }}</p>
+            </div>
+            <div class="">
+                <p class="date">{{ date.toLocaleDateString('en-us', options) }}</p>
+                <div class="actions-task">
+                    <i @click="editForm" class="far fa-edit"></i>
+                    <label class="checkbox">
+                        <input @click="done" v-model="props.task.isCompleted" type="checkbox">
+                        Done
+                    </label>
+                </div>
             </div>
         </div>
         <div v-else>
@@ -40,6 +45,7 @@
             </form>
         </div>
     </div>
+</div>
 </template>
 <script setup>
 import { ref, defineProps } from 'vue';
@@ -54,7 +60,7 @@ const editTitle = ref(props.task.title);
 const editDescription = ref(props.task.description);
 const isCompleted = ref(props.task.isCompleted)
 const date = ref(new Date(props.task.created_at))
-const options = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", hour12:"false"};
+const options = { weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", hour12: "false" };
 const dateFormated = ref('')
 
 const props = defineProps({
@@ -93,17 +99,28 @@ const done = async () => {
 .textDone {
     text-decoration: line-through
 }
+
 .actions-task {
     border-top: 1px solid rgb(206, 205, 205);
     padding: 1rem;
     display: flex;
     justify-content: space-around;
 }
+
 .doneStyle {
     background-color: rgb(230, 228, 228);
     color: rgb(196, 196, 196);
 }
+
 .content-task {
     padding: 2rem 1rem 0rem 1rem;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: space-around; */
+}
+
+.date {
+    font-size: 14px;
+    font-weight: 250;
 }
 </style>

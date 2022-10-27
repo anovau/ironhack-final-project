@@ -1,10 +1,10 @@
 <template>
-    <nav class="navbar" role="navigation" aria-label="main navigation">
+    <nav class="navbar px-5" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <router-link :to="{name: 'home'}" class="navbar-item">
                 <img src="../images/to-to-logo-black.png" width="112" height="28">
                 </router-link>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+            <a @click="showBurgerMenu" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
                 data-target="navbarBasicExample">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -12,7 +12,7 @@
             </a>
         </div>
 
-        <div id="navbarBasicExample" class="navbar-menu">
+        <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': burgerMenu  }">
             <div class="navbar-start">
                 <router-link :to="{name: 'home'}" class="navbar-item">
                     Home
@@ -61,17 +61,24 @@
     </nav>
 </template>
 <script setup>
+import { ref } from 'vue';
 import { useAuthStore } from '../store/auth.js'
 import { useRouter } from 'vue-router'
 
 const router = useRouter();
 const authStore = useAuthStore();
+const burgerMenu = ref(false)
 
 const logout = () => {
     console.log("Cerrar sesión");
     authStore.logout();
     router.push({name: 'home'})
 };
+
+const showBurgerMenu = () => {
+    burgerMenu.value = !burgerMenu.value;
+}
+
 </script>
 <style scoped>
 

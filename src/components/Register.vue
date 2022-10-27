@@ -1,6 +1,6 @@
 <template>
     <div class="columns is-centered background-grey">
-    <div class="total-height column is-half is-full-mobile">
+    <div class="total-height column is-two-fifths is-full-mobile">
         <div class="box m-5">
         <h1 class="mb-3">Create new account</h1>
         <div v-show="ConfirmationMessage" class="notification is-success is-light">
@@ -68,9 +68,6 @@ const passwordError = ref(false)
 const ConfirmationMessage = ref(false)
 
 const onSubmit = async () => {
-    console.log("formulario enviado Login");
-    console.log(email.value);
-    console.log(password.value);
     passwordNotMatch.value = false;
     passwordError.value = false;
 

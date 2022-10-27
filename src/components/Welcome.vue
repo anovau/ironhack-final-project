@@ -21,8 +21,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 90vh;
-    /* max-width: 100%; */
-    
 }
 h1 { 
     font-size: 68px;

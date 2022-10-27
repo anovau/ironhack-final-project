@@ -1,6 +1,6 @@
 <template>
     <div class="columns is-centered background-grey">
-    <div class="column is-half is-full-mobile total-height">
+    <div class="column is-two-fifths is-full-mobile total-height">
         <div class="box m-5">
         <h1 class="mb-3">Login</h1>
         <div v-show="ErrorMessage" class="notification is-danger is-light">
@@ -56,11 +56,9 @@ const ErrorMessage = ref(false);
 
 
 const onSubmit = async () => {
-    console.log("formulario enviado Login ", email.value, password.value);
     const res = await login(email.value, password.value)
     ErrorMessage.value = false;
     if (res) {
-        console.log("login hecho")
         authStore.login(res, email.value, password.value);
         router.push({ name: 'home' })
     } else {

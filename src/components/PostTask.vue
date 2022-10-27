@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <form @submit.prevent="onSubmit" class="column is-6 is-12-mobile is-offset-one-quarter box p-5">
+    <form @submit.prevent="onSubmit" class="column is-6 is-12-mobile is-offset-one-quarter box p-5 mb-5">
         <div class="field">
   <label class="label">Title</label>
   <div class="control">
@@ -32,7 +32,7 @@ import { useTaskStore } from '../store/task.js'
 import { useAuthStore } from '../store/auth.js';
 import { defineEmits } from 'vue';
 
-const emit = defineEmits(['handleRefresh'])
+const emits = defineEmits(['handleRefresh'])
 const taskStore = useTaskStore();
 const authStore = useAuthStore();
 
@@ -45,8 +45,7 @@ const onSubmit = async () => {
         await taskStore.getTask();
         title.value = '';
         description.value = '';
-        console.log("Task creada")
-        emit('handleRefresh');
+        emits('handleRefresh');
     }
 };
 

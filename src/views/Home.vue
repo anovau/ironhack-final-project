@@ -2,9 +2,9 @@
     <div v-if="!authStore.isAuth">
         <Welcome />
     </div>
-    <div v-else class="mt-5">
+    <div v-else class="container mt-6">
         <PostTask @handleRefresh="refresh" />
-        <div class="columns is-multiline mt-5" >
+        <div class="columns is-multiline mt-5 task-container" >
          <Task :task="task" v-for="task in tasks" @handleRefresh="refresh"/>
         </div>
 </div>
@@ -36,5 +36,8 @@ onMounted( async () => {
 
 </script>
 <style scoped>
+.task-container {
+    padding-bottom: 100px;
+}
 
 </style>

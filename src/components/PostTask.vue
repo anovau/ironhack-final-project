@@ -52,12 +52,12 @@ const onSubmit = async () => {
     title.value = '';
     description.value = '';
     emits('handleRefresh');
-  } else if (title.value == '') {
+  }if (title.value == '') {
     titleRequired.value = true;
     setTimeout(() => {
       titleRequired.value = false;
     }, 3000);
-  } else if (description.value == '') {
+  }if (description.value == '') {
     descriptionRequired.value = true;
     setTimeout(() => {
       descriptionRequired.value = false;
@@ -67,6 +67,8 @@ const onSubmit = async () => {
 const cancelSubmit = () => {
   titleRequired.value = false;
   descriptionRequired.value = false;
+  title.value = '';
+    description.value = '';
 }
 
 </script>

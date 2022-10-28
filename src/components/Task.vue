@@ -91,12 +91,12 @@ const saveEdit = async () => {
         await taskStore.updateTask(props.task.id, editTitle.value, editDescription.value)
         emit("handleRefresh")
         showEdit.value = false;
-    } else if (editTitle.value == '') {
+    }if (editTitle.value == '') {
         titleRequired.value = true;
         setTimeout(() => {
             titleRequired.value = false;
         }, 3000);
-    } else if (editDescription.value == '') {
+    }if (editDescription.value == '') {
         descriptionRequired.value = true;
         setTimeout(() => {
             descriptionRequired.value = false;

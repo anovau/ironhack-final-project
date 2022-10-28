@@ -31,7 +31,7 @@ h2 {
     font-size: 22px;
 }
 .light-container {
-    background-color: rgba(188, 187, 187, 0.5);
+    background-color: rgba(177, 176, 176, 0.7);
     border-radius: 15px;
     padding: 2rem;
 }

@@ -14,7 +14,7 @@
                 <form @submit.prevent="onSubmit">
                     <div class="field">
                         <p class="control has-icons-left has-icons-right">
-                            <input v-model="email" class="input" :class="{ 'is-danger': emailError }" type="email" placeholder="Email">
+                            <input v-model="email" class="input" :class="{ 'is-danger': emailErrorya }" type="email" placeholder="Email">
                             <span class="icon is-small is-left">
                                 <i class="fas fa-envelope"></i>
                             </span>
